@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 import { collection, setDoc, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { v4 as uuidv4 } from "uuid";
+import emailjs from "emailjs-com";
+
 export const useDashboardStore = defineStore("dashboard", {
   actions: {
     async addPost(post) {
@@ -18,6 +20,33 @@ export const useDashboardStore = defineStore("dashboard", {
     removePost(postId) {
       try {
         deleteDoc(doc(db, "posts", postId));
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    editPost(post) {
+      try {
+        const docRef = doc(db, "posts", post.id);
+        setDoc(docRef, post);
+        console.log("Succesfully edtied post");
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async send_NewsletterMail(email) {
+      try {
+        const response = await emailjs.send(
+          "your_serivce_id", // Your service id
+          "you_template_id", //Your template id
+          {
+            name: email.name,
+            email: email.email,
+            message: email.message,
+          },
+          "your_public_key" // Your publick key
+        );
       } catch (error) {
         console.error(error);
       }

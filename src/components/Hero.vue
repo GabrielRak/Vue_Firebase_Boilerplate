@@ -1,12 +1,12 @@
 <template>
-      <div
+  <div
     class="z-40 fixed items-center justify-center w-full h-screen flex flex-col"
   >
     <h1 class="text-center text-5xl font-bold mt--24">
       {{ header }}
     </h1>
     <h3 class="text-center text-xl font-regular">
-        {{ subheader }}
+      {{ subheader }}
     </h3>
     <RouterLink to="/about">
       <button
@@ -19,23 +19,21 @@
   </div>
 </template>
 <script>
-
 export default {
-    name: 'Hero',
-    props: {
-        header: {
-            type: String,
-            required: true
-        },
-        subheader: {
-            type: String,
-            required: true
-        },
-        buttonText: {
-            type: String,
-            required: true
-        }
-    }
-}
-
+  name: "Hero",
+  props: {
+    header: {
+      type: String,
+      required: true,
+    },
+    subheader: {
+      type: String,
+      required: true,
+    },
+    buttonText: {
+      type: String,
+      required: true,
+    },
+  },
+};
 </script>

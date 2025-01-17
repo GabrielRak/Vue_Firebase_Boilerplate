@@ -5,22 +5,22 @@
       {{ content }}
     </p>
     <RouterLink to="/articles">
-        {{ encourage }} 
+      {{ encourage }}
     </RouterLink>
   </div>
 </template>
 <script>
-export default{
-    name:"About_content",
-    props:{
-        content:{
-            type:String,
-            required:true
-        },
-        encourage:{
-            type:String,
-            required:true
-        }
+export default {
+  name: "About_content",
+  props: {
+    content: {
+      type: String,
+      required: true,
     },
-}
+    encourage: {
+      type: String,
+      required: true,
+    },
+  },
+};
 </script>

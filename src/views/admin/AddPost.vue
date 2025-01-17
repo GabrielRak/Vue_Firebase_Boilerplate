@@ -37,34 +37,32 @@ import { useDashboardStore } from "../../store/dashboardStore";
 export default {
   name: "AddPost",
   data() {
+    const dashboardStore = useDashboardStore();
 
-        const dashboardStore = useDashboardStore()
+    const form = ref({
+      title: "",
+      brief: "",
+      content: [{ title: "", content: "" }],
+    });
 
-        const form = ref({
-            title: "",
-            brief: "",
-            content: [{ title: "", content: "" }],
-        });
+    const addChapter = () => {
+      form.value.content.push({ title: "", content: "" });
+    };
 
-        const addChapter = () => {
-            form.value.content.push({ title: "", content: "" });
-        };
+    const removeChapter = (index) => {
+      form.value.content.splice(index, 1);
+    };
 
-        const removeChapter = (index) => {
-            form.value.content.splice(index, 1);
-        };
+    const submitForm = () => {
+      dashboardStore.addPost(form.value);
+    };
 
-        const submitForm = () => {
-            dashboardStore.addPost(form.value);
-        };
-
-        return {
-            form,
-            addChapter,
-            removeChapter,
-            submitForm,
-        };
-    
+    return {
+      form,
+      addChapter,
+      removeChapter,
+      submitForm,
+    };
   },
 };
 </script>

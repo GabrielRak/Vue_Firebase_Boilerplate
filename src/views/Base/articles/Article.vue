@@ -4,7 +4,7 @@
     <div v-else-if="error" class="text-center text-red-500">{{ error }}</div>
     <div v-else>
       <Table_of_contents :content="post.content" />
-      <Article_display :post="post"/>
+      <Article_display :post="post" />
     </div>
   </div>
 </template>
@@ -23,9 +23,9 @@ export default {
       required: true,
     },
   },
-  components:{
+  components: {
     Table_of_contents,
-    Article_display
+    Article_display,
   },
 
   setup() {
@@ -51,13 +51,13 @@ export default {
     });
 
     const post = computed(() => blogStore.post);
-      blogStore.post = {
-        id: null,
-        title: null,
-        content: null,
-      };
-      blogStore.post.title = null;
-      blogStore.post.content = null;
+    blogStore.post = {
+      id: null,
+      title: null,
+      content: null,
+    };
+    blogStore.post.title = null;
+    blogStore.post.content = null;
 
     return {
       post,

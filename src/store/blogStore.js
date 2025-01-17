@@ -15,7 +15,7 @@ export const useBlogStore = defineStore("blog", {
         const querySnapshot = await getDocs(collection(db, "posts"));
         querySnapshot.forEach((doc) => {
           this.posts.push(doc.data());
-        });
+        }); 
       } catch (error) {
         console.error(error);
       }

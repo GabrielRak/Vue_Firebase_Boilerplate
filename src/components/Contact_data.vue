@@ -19,19 +19,18 @@
   </div>
 </template>
 <script>
-import { RouterLink } from 'vue-router';
+import { RouterLink } from "vue-router";
 
-export default{
-    name:"Contact_data",
-    components:{
-        RouterLink
+export default {
+  name: "Contact_data",
+  components: {
+    RouterLink,
+  },
+  props: {
+    email: {
+      type: String,
+      required: true,
     },
-    props:{
-        email:{
-            type:String,
-            required:true
-        },
-    }
-}
-
+  },
+};
 </script>
