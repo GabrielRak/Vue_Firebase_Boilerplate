@@ -8,6 +8,14 @@
       <label for="brief">Brief:</label>
       <textarea id="brief" v-model="form.brief" required></textarea>
     </div>
+    <div class="form-group">
+      <label for="category">Category:</label>
+      <select id="category" v-model="form.category" required>
+        <option v-for="category in categories" :key="category.title" :value="category">
+          {{ category }}
+        </option>
+      </select>
+    </div>
     <div
       v-for="(chapter, index) in form.content"
       :key="index"
@@ -28,19 +36,30 @@
     <button type="button" @click="addChapter" class="add-button">
       Add Chapter
     </button>
+    <button type="button" @click="save_asDraft" class="add-button">
+      Save as Draft
+    </button>
     <button type="submit" class="submit-button">Submit</button>
   </form>
 </template>
 <script>
-import { ref } from "vue";
-import { useDashboardStore } from "../../store/dashboardStore";
+import { computed, ref } from "vue";
+import { useDashboardStore } from "../../store/admin/dashboardStore";
+import { useBlogStore } from "../../store/blog/blogStore";
+import { onBeforeMount } from "vue";
 export default {
   name: "AddPost",
   data() {
     const dashboardStore = useDashboardStore();
+    const blogStore = useBlogStore();
+
+    onBeforeMount(() => {
+      blogStore.fetchCategories();
+    });
 
     const form = ref({
       title: "",
+      category: "",
       brief: "",
       content: [{ title: "", content: "" }],
     });
@@ -53,15 +72,23 @@ export default {
       form.value.content.splice(index, 1);
     };
 
+
+    const save_asDraft = () => {
+      dashboardStore.save_asDraft(form.value);
+    };
+
+
     const submitForm = () => {
       dashboardStore.addPost(form.value);
     };
 
     return {
       form,
+      categories:computed(()=>blogStore.categories),
       addChapter,
       removeChapter,
       submitForm,
+      save_asDraft
     };
   },
 };

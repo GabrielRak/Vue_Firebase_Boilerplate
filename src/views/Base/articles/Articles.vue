@@ -1,19 +1,19 @@
 <template>
-    <div class="container mx-auto p-6">
-        <h1 class="font-bold text-3xl text-center mb-6">Blog Posts</h1>
+    <div class="container">
         <div v-if="error" class="text-red-500 text-center">{{ error }}</div>
         <div v-if="!error && posts.length === 0" class="text-center text-gray-500 mt-4">No posts available.</div>
         <div v-else>
             <Articles_list
                 :posts="posts"
-            />
+                :categories="categories"
+                />
         </div>
     </div>
 </template>
 
 <script>
-import { defineComponent, onMounted, onUnmounted } from 'vue';
-import { useBlogStore } from '../../../store/blogStore.js';
+import { computed, defineComponent, onMounted, onUnmounted } from 'vue';
+import { useBlogStore } from '../../../store/blog/blogStore.js';
 import Articles_list from '../../../components/Articles_list.vue';
 export default defineComponent({
     name: 'Blog',
@@ -25,13 +25,15 @@ export default defineComponent({
         
         onMounted(() => {
             blogStore.fetchPosts();
+            blogStore.fetchCategories();
         });
         onUnmounted(() => {
             blogStore.posts = [];
         });
 
         return {
-            posts: blogStore.posts,
+            categories: computed(()=> blogStore.categories),
+            posts: computed(()=>blogStore.posts),
             error: blogStore.error,
         };
     },

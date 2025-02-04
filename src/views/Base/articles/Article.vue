@@ -4,14 +4,15 @@
     <div v-else-if="error" class="text-center text-red-500">{{ error }}</div>
     <div v-else>
       <Table_of_contents :content="post.content" />
-      <Article_display :post="post" />
+      <Article_display :post="post" :is-authenticated="isAuthenticated"/>
     </div>
   </div>
 </template>
 
 <script>
 import { onMounted, computed, ref } from "vue";
-import { useBlogStore } from "../../../store/blogStore.js";
+import { useBlogStore } from "../../../store/blog/blogStore.js";
+import {useAuthStore} from '../../../store/auth/authStore';
 import { useRoute } from "vue-router";
 import Table_of_contents from "../../../components/Table_of_contents.vue";
 import Article_display from "../../../components/Article_display.vue";
@@ -50,6 +51,10 @@ export default {
       fetchPost();
     });
 
+    const authStore = useAuthStore();
+
+    const isAuthenticated = computed(() => authStore.authenticated);
+
     const post = computed(() => blogStore.post);
     blogStore.post = {
       id: null,
@@ -63,6 +68,7 @@ export default {
       post,
       loading,
       error,
+      isAuthenticated
     };
   },
 };

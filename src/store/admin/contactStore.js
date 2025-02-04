@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import { addDoc, collection } from "firebase/firestore";
 
 export const useContactStore = defineStore("contact", {

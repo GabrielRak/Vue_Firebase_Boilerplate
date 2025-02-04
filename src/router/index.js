@@ -3,21 +3,15 @@ import Home from "../views/Base/Home.vue";
 import PostDetail from "../views/Base/articles/Article.vue";
 import Articles from "../views/Base/articles/Articles.vue";
 import Contact from "../views/Base/Contact.vue";
-import About from "../views/Base/About.vue";
-import Sign_in from "../views/admin/Sign_in.vue";
+import Sign_in from "../views/auth/Sign_in.vue";
 import Dashboard from "../views/admin/Dashboard.vue";
-import AddPost from "../views/admin/AddPost.vue";
-import { useAuthStore } from "../store/authStore";
+import { useAuthStore } from "../store/auth/authStore";
+import Sign_up from "../views/auth/Sign_up.vue";
 const routes = [
   {
     path: "/",
     name: "Home",
     component: Home,
-  },
-  {
-    path: "/about",
-    name: "About",
-    component: About,
   },
   {
     path: "/articles",
@@ -41,15 +35,14 @@ const routes = [
     component: Sign_in,
   },
   {
+    path: "/sign_up",
+    name: "SignUp",
+    component: Sign_up,
+  },
+  {
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: "/admin/add-post",
-    name: "Post Form",
-    component: AddPost,
     meta: { requiresAuth: true },
   },
 ];

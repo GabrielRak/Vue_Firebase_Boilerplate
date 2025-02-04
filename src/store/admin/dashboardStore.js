@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { collection, setDoc, doc, deleteDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import { v4 as uuidv4 } from "uuid";
 import emailjs from "emailjs-com";
 
@@ -19,7 +19,11 @@ export const useDashboardStore = defineStore("dashboard", {
 
     removePost(postId) {
       try {
-        deleteDoc(doc(db, "posts", postId));
+        if (confirm("Are you sure you want to delete this post?")) {
+          deleteDoc(doc(db, "posts", postId));
+        } else {
+          console.log("Post deletion canceled");
+        }
       } catch (error) {
         console.error(error);
       }
@@ -45,7 +49,7 @@ export const useDashboardStore = defineStore("dashboard", {
             email: email.email,
             message: email.message,
           },
-          "your_public_key" // Your publick key
+          "your_public_key" // Your public key
         );
       } catch (error) {
         console.error(error);

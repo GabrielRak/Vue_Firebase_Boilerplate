@@ -8,7 +8,6 @@ export default {
         'tertiary': '#3A2FA1'
       },
       backgroundImage: {
-        'hero': "url('./src/assets/images/hero_bg.png')",
         'gradient-primary': 'linear-gradient(90deg, #374AF2 0%, #3A2FA1 100%)',
         'gradient-secondary': 'linear-gradient(90deg, #141414 0%, #101010 100%)',
         'gradient-tertiary': 'linear-gradient(90deg, #101010 0%, #670BFF 100%)',

@@ -1,39 +1,29 @@
 <template>
-  <div
-    class="z-40 fixed items-center justify-center w-full h-screen flex flex-col"
-  >
-    <h1 class="text-center text-5xl font-bold mt--24">
-      {{ header }}
-    </h1>
-    <h3 class="text-center text-xl font-regular">
-      {{ subheader }}
-    </h3>
-    <RouterLink to="/about">
-      <button
-        type="button"
-        class="bg-black text-white py-2 px-4 rounded-lg mt-4 text-center mx-auto"
-      >
-        {{ buttonText }}
-      </button>
-    </RouterLink>
+  <div>
+    <h1>{{ header }}</h1>
   </div>
 </template>
 <script>
+import Search from "./Search.vue";
+
 export default {
   name: "Hero",
+  components: {
+    Search,
+  },
   props: {
     header: {
-      type: String,
-      required: true,
-    },
-    subheader: {
-      type: String,
-      required: true,
-    },
-    buttonText: {
       type: String,
       required: true,
     },
   },
 };
 </script>
+<style lang="scss" scoped>
+h1 {
+  margin-top:11vh;
+  font-size: 33px;
+  font-weight: 700;
+  font-family:'poppins';
+}
+</style>

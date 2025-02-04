@@ -1,48 +1,137 @@
 <template>
   <div>
-    <div class="space-y-4 mt-4 w-5/12 mx-auto">
+    <div class="w-full grid grid-cols-3 gap-x-8 mx-auto">
       <div
         v-for="post in posts"
         :key="post.id"
-        class="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 bg-white"
+        class="article_container"
       >
         <router-link
           :to="{ name: 'PostDetail', params: { id: post.id } }"
-          class="text-black hover:underline"
         >
-          <h2 class="text-xl font-semibold mb-2">{{ post.title }}</h2>
-        </router-link>
-        <p class="text-gray-700">{{ post.brief }}</p>
-        <div class="text-center w-100" v-if="isAdmin">
-          <div class="flex justify-center">
-            <button
+
+      <div class="image-container">
+
+        <img src="../assets/images/Hero.webp" alt="" />
+      </div>
+
+        <div class="flex">
+          <span>{{ post.category }}</span>
+        </div>
+
+          <h2 >{{ post.title }}</h2>
+          <p >{{ post.brief }}</p>
+          
+          
+          
+          <div v-if="isAdmin">
+            <div>
+              <button
               @click="$emit('delete-post', post.id)"
-              class="bg-red-700 text-white px-8 py-2"
-            >
+              >
               Delete
             </button>
           </div>
+        
+        
         </div>
+      </router-link>
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {
+import { defineComponent, toRefs } from "vue";
+
+export default defineComponent({
   name: "Articles_list",
   props: {
     posts: {
       type: Array,
       required: true,
     },
+    categories:{
+      type: Array,
+      required: true
+    },
     isAdmin: {
       type: Boolean,
     },
   },
-  methods: {
-    deletePost(id) {
-      this.$emit("delete-post", id);
-    },
+  setup(props, { emit }) {
+    const { posts, isAdmin,categories } = toRefs(props);
+
+
+    const deletePost = (id) => {
+      emit("delete-post", id);
+    };
+
+    return {
+      posts,
+      isAdmin,
+      categories,
+      deletePost,
+    };
   },
-};
+});
 </script>
+<style scoped lang="scss">
+
+.article_container{
+
+  margin-top:8vh;
+
+  background-color:#f0f0f0;
+  border-radius:15px;
+  padding:10px 30px;
+
+  .image-container {
+    display: inline-block; /* Maintains space */
+    overflow: hidden; /* Prevents overflow */
+  }
+
+  .image-container img {
+    transition: transform 0.3s ease; /* Smooth transition */
+  }
+
+  .image-container:hover img {
+    transform: scale(1.2); /* Zoom 20% */
+  }
+
+
+  span{
+    font-size:16px;
+    font-weight: 600;
+    font-family:'poppins';
+    display:flex;
+    align-items: center;
+    text-transform: capitalize;
+    margin-top:20px;  
+
+    &::after{
+      margin:0px 8px;
+      content: "";
+      display: block;
+      width:4px;
+      height: 4px;
+      background-color: black;
+      border-radius: 100%;
+    }
+  }
+
+  h2{
+    font-size:24px;
+    font-weight:600;
+    font-family:'poppins';
+    margin:15px 0px;
+  }
+
+  p{
+    font-size:16px;
+    font-weight:400;
+    font-family:'poppins';
+  }
+
+}
+
+</style>

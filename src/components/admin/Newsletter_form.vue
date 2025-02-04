@@ -48,7 +48,7 @@
 
 <script>
 import emailjs from "emailjs-com";
-import { useDashboardStore } from "../store/dashboardStore";
+import { useDashboardStore } from "../../store/admin/dashboardStore";
 export default {
   name: "Newsletter_form",
   data() {

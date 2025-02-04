@@ -3,26 +3,20 @@
     <div>
       <div class="w-1/2">
         <form @submit.prevent="submitForm">
-          <div class="form-group">
-            <label for="name" class="font-sm font-light">Name:</label>
-            <input
-              type="text"
-              id="name"
-              v-model="name"
-              class="bg-primary p-2 mb-6"
-              required
+          <StyledInput
+            id="name"
+            label="Name:"
+            type="text"
+            v-model="name"
+            placeholder="Name*"
             />
-          </div>
-          <div class="form-group">
-            <label for="email" class="font-sm font-light">Email:</label>
-            <input
-              type="email"
-              id="email"
-              v-model="email"
-              class="bg-primary p-2 mb-6"
-              required
-            />
-          </div>
+          <StyledInput
+            id="email"
+            label="Email:"
+            type="email"
+            v-model="email"
+            placeholder="Email*"
+          />
           <div class="form-group">
             <label for="message" class="font-sm font-light">Message:</label>
             <textarea
@@ -45,26 +39,18 @@
   </div>
 </template>
 <script>
-import { useContactStore } from "../store/contactStore";
+import { useContactStore } from "../store/admin/contactStore";
 import { ref, computed } from "vue";
+import StyledInput from "./common/StyledInput.vue";
 export default {
   name: "Contact_form",
+  components: {
+    StyledInput,
+  },
   props: {
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-    message: {
-      type: String,
-      required: true,
-    },
     error: {
       type: String,
-      required: true,
+      required: false,
     },
   },
   setup() {
@@ -72,19 +58,16 @@ export default {
     const name = ref("");
     const email = ref("");
     const message = ref("");
-
     const error = computed(() => contactStore.error);
 
     const submitForm = async () => {
-      const data = {
-        name: name.value,
-        email: email.value,
-        message: message.value,
-        createdAt: new Date(),
-      };
-
       try {
-        await contactStore.sendMessage("contact_messages", data);
+        await contactStore.sendMessage("contact_messages", {
+          name: name.value,
+          email: email.value,
+          message: message.value,
+          createdAt: new Date(),
+        });
       } catch (error) {}
     };
 

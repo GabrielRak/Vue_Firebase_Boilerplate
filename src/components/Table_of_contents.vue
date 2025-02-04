@@ -1,13 +1,12 @@
 <template>
   <div
-    class="table_of_contents mb-8 sticky top-1/2 w-64 left-0 transform -translate-y-1/2 shadow-lg p-4 bg-white rounded-lg"
+    class="table_of_contents"
   >
-    <h3 class="text-xl font-semibold mb-4">Table of Contents</h3>
+    <h3>Table of Contents</h3>
     <ul class="list-disc list-inside">
       <li v-for="paragraph in content" :key="paragraph.id" class="mb-2">
         <a
           :href="'#' + paragraph.title"
-          class="text-blue-500 hover:underline"
           >{{ paragraph.title }}</a
         >
       </li>
@@ -25,3 +24,34 @@ export default {
   },
 };
 </script>
+<style lang="css" scoped>
+
+.table_of_contents {
+  max-height: 80vh;
+  overflow-y: auto;
+  position: sticky;
+  top:50%;
+  box-shadow:4px 4px 8px rgba(0,0,0,0.1);
+  background-color:rgba(255,255,255,0.9);
+  border-radius: 15px;
+  padding:10px;
+  width:280px;
+
+  h3{
+    font-weight: 600;
+    font-size:22px;
+    margin-bottom:14px;
+  }
+
+  a{
+    font-size: 16px;
+    font-weight: 500;
+    transition:all 0.3s ease;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+
+}
+
+</style>
